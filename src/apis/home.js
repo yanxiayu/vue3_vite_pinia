@@ -13,3 +13,10 @@ export function findNewAPI() {
     url:'/home/new'
   })
 }
+
+// 获取人气推荐接口
+export function findHotAPI() {
+  return httpInstance({
+    url:'/home/hot'
+  })
+}

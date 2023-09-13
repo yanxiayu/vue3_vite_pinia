@@ -16,8 +16,8 @@
 </template>
 
 <script setup>
-import HomePanel from "./HomePanel.vue";
 import { findNewAPI } from "@/apis/home";
+import HomePanel from './HomePanel.vue'
 import { onMounted, ref } from "vue";
 
 // 获取数据
