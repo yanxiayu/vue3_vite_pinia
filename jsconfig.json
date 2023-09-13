@@ -1,0 +1,9 @@
+{
+  "compilerOptions" : {
+    "baseUrl" : "./",
+    // 这个配置项只做联想提示
+    "paths" : {
+      "@/*":["src/*"]
+    }
+  }
+}
