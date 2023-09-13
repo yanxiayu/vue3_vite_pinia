@@ -1,9 +1,12 @@
+<!-- 组件封装，实现组件的复用性 -->
 <template>
   <div class="home-panel">
     <div class="container">
       <div class="head">
         <!-- 主标题和副标题 -->
-        <h3>{{title}}<small>{{ subTitle }}</small></h3>
+        <h3>
+          {{ title }}<small>{{ subTitle }}</small>
+        </h3>
       </div>
       <!-- 主体内容区域 -->
       <slot></slot>
