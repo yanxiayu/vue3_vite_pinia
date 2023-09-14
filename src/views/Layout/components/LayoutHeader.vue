@@ -6,7 +6,7 @@
       </h1>
       <ul class="app-header-nav">
         <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
-          <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
+          <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         </li>
       </ul>
       <div class="search">
@@ -28,15 +28,12 @@ const categoryStore =  useCategoryStore()
 <style scoped lang="scss">
 .app-header {
   background: #fff;
-
   .container {
     display: flex;
     align-items: center;
   }
-
   .logo {
     width: 200px;
-
     a {
       display: block;
       height: 132px;
@@ -46,7 +43,6 @@ const categoryStore =  useCategoryStore()
         contain;
     }
   }
-
   .app-header-nav {
     width: 820px;
     display: flex;
@@ -70,7 +66,6 @@ const categoryStore =  useCategoryStore()
           border-bottom: 1px solid $xtxColor;
         }
       }
-
       .active {
         color: $xtxColor;
         border-bottom: 1px solid $xtxColor;
