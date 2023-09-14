@@ -27,7 +27,7 @@
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <ImageView :image-list="goods.mainPictures"></ImageView>
+              <XtxImageView :image-list="goods.mainPictures"></XtxImageView>
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -132,8 +132,7 @@ import { getDetailAPI } from "@/apis/detail";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import DetailHot from "@/views/Detail/components/DetailHot.vue";
-import ImageView from "@/components/ImageView/index.vue";
-import XtxSku from '@/components/XtxSku/index.vue'
+
 
 // 获取详情数据
 const goods = ref({});
@@ -148,7 +147,7 @@ onMounted(() => {
 
 // sku规格被操作时
 const skuChange = (sku) => {
-  console.log(sku);
+
 }
 </script>
 
