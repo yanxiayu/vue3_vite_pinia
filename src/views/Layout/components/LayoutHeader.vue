@@ -5,8 +5,14 @@
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
       <ul class="app-header-nav">
-        <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
-          <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
+        <li
+          class="home"
+          v-for="item in categoryStore.categoryList"
+          :key="item.id"
+        >
+          <RouterLink active-class="active" :to="`/category/${item.id}`">{{
+            item.name
+          }}</RouterLink>
         </li>
       </ul>
       <div class="search">
@@ -20,8 +26,8 @@
 
 <script setup>
 // 使用pinia中的数据 state
-import { useCategoryStore } from '@/stores/category'
-const categoryStore =  useCategoryStore()
+import { useCategoryStore } from "@/stores/category";
+const categoryStore = useCategoryStore();
 
 </script>
 

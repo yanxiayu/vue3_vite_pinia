@@ -1,5 +1,5 @@
 # vue3_vite_pinia
-项目涉及内容：
+项目涉及内容：<br>
 1.vue3前端框架<br>
 2.pinia新一代集中式状态管理工具<br>
 3.vite前端构建工具<br>
