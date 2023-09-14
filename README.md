@@ -1,35 +1,10 @@
 # vue3_vite_pinia
-
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+项目涉及内容：
+1.vue3前端框架<br>
+2.pinia新一代集中式状态管理工具<br>
+3.vite前端构建工具<br>
+4.vue-router路由插件<br>
+5.VueUse基于vue3组合式API的函数封装库<br>
+6.axios请求，请求拦截器、响应拦截器<br>
+7.sass基于css的预编译语言<br>
+8.elementUI组件库<br>
