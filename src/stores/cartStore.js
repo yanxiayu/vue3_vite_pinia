@@ -1,26 +1,37 @@
 // 封装购物车模块
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
+import { useUserStore } from "./user";
+import { insertCartAPI, findNewCartListAPI } from "@/apis/cart.js";
 
-export const useCartStore = defineStore(
-  "cart",
-  () => {
+export const useCartStore = defineStore("cart", () => {
+    const userStore = useUserStore();
+    const isLogin = computed(() => userStore.userInfo.token);
     // 1.定义state cartList
     const cartList = ref([]);
     // 2.定义action addCart
     // 添加购物车操作
-    const addCart = (goods) => {
-      // 已添加过 count + 1
-      // 没有添加过 直接push
-      // 思路：通过匹配传递过来的商品对象中的skuId能不能再cartList中找到，找到了就是添加过
-
-      const item = cartList.value.find((item) => goods.skuId === item.skuId);
-      if (item) {
-        // 找到了
-        item.count++;
+    const addCart = async (goods) => {
+      const { skuId, count } = goods;
+      if (isLogin.value) {
+        // 登录后进入购物车逻辑
+        await insertCartAPI({ skuId, count });
+        const res = await findNewCartListAPI();
+        cartList.value = res.result;
+       
       } else {
-        // 没找到
-        cartList.value.push(goods);
+        // 没有登录就执行本地逻辑
+        // 已添加过 count + 1
+        // 没有添加过 直接push
+        // 思路：通过匹配传递过来的商品对象中的skuId能不能再cartList中找到，找到了就是添加过
+        const item = cartList.value.find((item) => goods.skuId === item.skuId);
+        if (item) {
+          // 找到了
+          item.count++;
+        } else {
+          // 没找到
+          cartList.value.push(goods);
+        }
       }
     };
 
@@ -51,14 +62,14 @@ export const useCartStore = defineStore(
     const selectedCount = computed(() =>
       cartList.value
         .filter((item) => item.selected)
-        .reduce((acc, cur) => acc + cur.count , 0)
+        .reduce((acc, cur) => acc + cur.count, 0)
     );
 
     // 4.已选择商品价格总计
     const selectedPrice = computed(() =>
       cartList.value
         .filter((item) => item.selected)
-        .reduce((acc, cur) => acc + cur.count * cur.price , 0)
+        .reduce((acc, cur) => acc + cur.count * cur.price, 0)
     );
 
     // 单选功能
@@ -87,7 +98,7 @@ export const useCartStore = defineStore(
       isAll,
       allCheck,
       selectedCount,
-      selectedPrice
+      selectedPrice,
     };
   },
   // 持久化配置 存入localstorage

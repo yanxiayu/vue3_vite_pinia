@@ -23,7 +23,7 @@ export const useCategoryStore = defineStore(
     };
   },
   // 持久化配置 存入localstorage
-  {
-    persist: true,
-  }
+  // {
+  //   persist: true,
+  // }
 );
