@@ -53,13 +53,24 @@ export const useCartStore = defineStore(
       item.selected = selected;
     };
 
+    // 是否全选
+    const isAll = computed(() => cartList.value.every((item) => item.selected));
+
+    // 全选功能
+    const allCheck = (selected) => {
+      // 把cartList中的每一项的selected都设置为当前全选框的状态
+      cartList.value.forEach((item) => item.selected = selected);
+    };
+
     return {
       cartList,
       addCart,
       delCart,
       allCount,
       allPrice,
-      singleCheck
+      singleCheck,
+      isAll,
+      allCheck
     };
   },
   // 持久化配置 存入localstorage
