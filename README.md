@@ -8,6 +8,7 @@
 6.axios请求，请求拦截器、响应拦截器<br>
 7.sass基于css的预编译语言<br>
 8.elementUI组件库<br>
+9.pinia-plugin-persistedstate数据持久化存储<br>
 
 # 使用优化的方式：
 1.组件封装，视图结构的封装<br>
