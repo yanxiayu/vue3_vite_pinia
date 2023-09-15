@@ -21,7 +21,7 @@
           </RouterLink>
           <i
             class="iconfont icon-close-new"
-            @click="store.delCart(i.skuId)"
+            @click="cartStore.delCart(i.skuId)"
           ></i>
         </div>
       </div>
