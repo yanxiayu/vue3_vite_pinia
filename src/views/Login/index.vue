@@ -22,6 +22,7 @@
             <el-form
               :model="form"
               :rules="rules"
+              ref="formRef"
               label-position="right"
               label-width="60px"
               status-ico
@@ -37,7 +38,7 @@
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
-              <el-button size="large" class="subBtn">点击登录</el-button>
+              <el-button size="large" class="subBtn" @click="doLogin">点击登录</el-button>
             </el-form>
           </div>
         </div>
@@ -54,7 +55,7 @@ import { ref } from "vue";
 const form = ref({
   account: "",
   password: "",
-  agree:true
+  agree: true,
 });
 
 // 2.准备规则对象
@@ -66,18 +67,34 @@ const rules = {
   ],
   agree: [
     {
-      validator: (rules, value, callback)=>{
-        console.log(value);
+      validator: (rules, value, callback) => {
+        // console.log(value);
         // 自定义勾选校验逻辑，勾选就通过，不勾选就不通过
         if (value) {
-          callback()
+          callback();
         } else {
-          callback(new Error('请勾选用户协议'))
+          callback(new Error("请勾选用户协议"));
         }
-      }
-    }
-  ]
+      },
+    },
+  ],
 };
+
+// 3.获取表单实例，调用实例方法进行表单的统一校验
+const formRef = ref(null);
+const doLogin = () => {
+  // 调用实例方法
+  formRef.value.validate((valid) => {
+    // valid:所有表单校验都通过 才为true
+    // console.log(valid);
+    // 以valid参数作为判断条件 如果通通过校验 执行登录逻辑
+    if (valid) {
+      // TODO Login
+
+    }
+  })
+}
+
 </script>
 
 <style scoped lang="scss">
