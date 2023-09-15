@@ -14,10 +14,17 @@ export const useUserStore = defineStore(
       const res = await loginAPI({ account, password });
       userInfo.value = res.result;
     };
+
+    // 退出时清空用户信息
+    const clearUserInfo = () => {
+      userInfo.value = {};
+    };
+
     // 3.以对象的形式将state和action return出去
     return {
       userInfo,
       getUserInfo,
+      clearUserInfo,
     };
   },
   // 持久化配置 存入localstorage

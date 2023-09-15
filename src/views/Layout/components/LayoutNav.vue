@@ -5,9 +5,19 @@
         <!-- 多模板渲染：区分登录状态和非登录状态 -->
         <!-- 适配思路：登录时显示第一块 非登录时显示  通过是否有token来判断 -->
         <template v-if="userStore.userInfo.token">
-          <li><a href="javascript:;"><i class="iconfont icon-user"></i>{{ userStore.userInfo.account }}</a></li>
           <li>
-            <el-popconfirm title="确认退出吗?" confirm-button-text="确认" cancel-button-text="取消">
+            <a href="javascript:;"
+              ><i class="iconfont icon-user"></i
+              >{{ userStore.userInfo.account }}</a
+            >
+          </li>
+          <li>
+            <el-popconfirm
+              @confirm="confirm"
+              title="确认退出吗?"
+              confirm-button-text="确认"
+              cancel-button-text="取消"
+            >
               <template #reference>
                 <a href="javascript:;">退出登录</a>
               </template>
@@ -17,7 +27,9 @@
           <li><a href="javascript:;">会员中心</a></li>
         </template>
         <template v-else>
-          <li><a href="javascript:;" @click="$router.push('/login')">请先登录</a></li>
+          <li>
+            <a href="javascript:;" @click="$router.push('/login')">请先登录</a>
+          </li>
           <!-- <li><router-link href="javascript:;" to="/login">请先登录</router-link></li> -->
           <li><a href="javascript:;">帮助中心</a></li>
           <li><a href="javascript:;">关于我们</a></li>
@@ -28,9 +40,19 @@
 </template>
 
 <script setup>
-import { useUserStore } from '@/stores/user.js'
-const userStore = useUserStore()
+import { useUserStore } from "@/stores/user.js";
+import { useRouter } from "vue-router";
 
+const userStore = useUserStore();
+const router = useRouter();
+
+const confirm = () => {
+  // 退出登录业务逻辑实现
+  // 1.清空用户信息 触发action函数
+  userStore.clearUserInfo();
+  // 2.跳转登录页面
+  router.push("/login");
+};
 </script>
 
 <style scoped lang="scss">
@@ -58,7 +80,7 @@ const userStore = useUserStore()
         }
       }
 
-      ~li {
+      ~ li {
         a {
           border-left: 2px solid #666;
         }
