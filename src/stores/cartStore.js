@@ -36,11 +36,11 @@ export const useCartStore = defineStore(
 
     // 计算属性
     // 1.总的数量 count之和
-    const allCount = computed(() => cartList.value.reduce((a, cur) => a + cur.count, 0));
+    const allCount = computed(() => cartList.value.reduce((acc, cur) => acc + cur.count, 0));
     // 2.总价格 所有项count*price之和
-    // a累加值,每次回调函数执行时累积计算的结果。
-    // c每一项,当前值
-    const allPrice = computed(() => cartList.value.reduce((a, cur) => a + cur.count * cur.price, 0));
+    // acc累加值,每次回调函数执行时累积计算的结果。
+    // cur每一项,当前值
+    const allPrice = computed(() => cartList.value.reduce((acc, cur) => acc + cur.count * cur.price, 0));
 
     return {
       cartList,
