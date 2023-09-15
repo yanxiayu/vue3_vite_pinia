@@ -36,11 +36,22 @@ export const useCartStore = defineStore(
 
     // 计算属性
     // 1.总的数量 count之和
-    const allCount = computed(() => cartList.value.reduce((acc, cur) => acc + cur.count, 0));
+    const allCount = computed(() =>
+      cartList.value.reduce((acc, cur) => acc + cur.count, 0)
+    );
     // 2.总价格 所有项count*price之和
     // acc累加值,每次回调函数执行时累积计算的结果。
     // cur每一项,当前值
-    const allPrice = computed(() => cartList.value.reduce((acc, cur) => acc + cur.count * cur.price, 0));
+    const allPrice = computed(() =>
+      cartList.value.reduce((acc, cur) => acc + cur.count * cur.price, 0)
+    );
+
+    // 单选功能
+    const singleCheck = (skuId, selected) => {
+      // 通过sku找到要修改的那一项，然后把它的selected修改为传过来的selected
+      const item = cartList.value.find((item) => item.skuId === skuId);
+      item.selected = selected;
+    };
 
     return {
       cartList,
@@ -48,6 +59,7 @@ export const useCartStore = defineStore(
       delCart,
       allCount,
       allPrice,
+      singleCheck
     };
   },
   // 持久化配置 存入localstorage
