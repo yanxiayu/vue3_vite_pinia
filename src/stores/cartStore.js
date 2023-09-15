@@ -59,6 +59,11 @@ export const useCartStore = defineStore(
       }
     };
 
+    // 清除购物车
+    const clearCart = () => {
+      cartList.value=[]
+    }
+
     // 计算属性
     // 1.总的数量 count之和
     const allCount = computed(() =>
@@ -113,6 +118,7 @@ export const useCartStore = defineStore(
       allCheck,
       selectedCount,
       selectedPrice,
+      clearCart
     };
   },
   // 持久化配置 存入localstorage
