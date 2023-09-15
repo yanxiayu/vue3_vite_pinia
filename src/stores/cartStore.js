@@ -39,11 +39,26 @@ export const useCartStore = defineStore(
     const allCount = computed(() =>
       cartList.value.reduce((acc, cur) => acc + cur.count, 0)
     );
+
     // 2.总价格 所有项count*price之和
     // acc累加值,每次回调函数执行时累积计算的结果。
     // cur每一项,当前值
     const allPrice = computed(() =>
       cartList.value.reduce((acc, cur) => acc + cur.count * cur.price, 0)
+    );
+
+    // 3.已选择数量
+    const selectedCount = computed(() =>
+      cartList.value
+        .filter((item) => item.selected)
+        .reduce((acc, cur) => acc + cur.count , 0)
+    );
+
+    // 4.已选择商品价格总计
+    const selectedPrice = computed(() =>
+      cartList.value
+        .filter((item) => item.selected)
+        .reduce((acc, cur) => acc + cur.count * cur.price , 0)
     );
 
     // 单选功能
@@ -59,7 +74,7 @@ export const useCartStore = defineStore(
     // 全选功能
     const allCheck = (selected) => {
       // 把cartList中的每一项的selected都设置为当前全选框的状态
-      cartList.value.forEach((item) => item.selected = selected);
+      cartList.value.forEach((item) => (item.selected = selected));
     };
 
     return {
@@ -70,7 +85,9 @@ export const useCartStore = defineStore(
       allPrice,
       singleCheck,
       isAll,
-      allCheck
+      allCheck,
+      selectedCount,
+      selectedPrice
     };
   },
   // 持久化配置 存入localstorage
