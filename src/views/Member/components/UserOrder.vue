@@ -3,6 +3,7 @@
     <el-tabs>
       <!-- tab切换 -->
       <el-tab-pane
+        @tab-change="tabChange"
         v-for="item in tabTypes"
         :key="item.name"
         :label="item.label"
@@ -102,7 +103,6 @@
 <script setup>
 import { getUserOrder } from "@/apis/order";
 import { ref, onMounted } from "vue";
-
 // tab列表
 const tabTypes = [
   { name: "all", label: "全部订单" },
@@ -119,14 +119,21 @@ const params = ref({
   orderState: 0,
   page: 1,
   pageSize: 2,
-})
+});
 const getOrderList = async () => {
-  const res = await getUserOrder(params.value)
- orderList.value= res.result.items
+  const res = await getUserOrder(params.value);
+  orderList.value = res.result.items;
 };
 onMounted(() => {
-  getOrderList()
-})
+  getOrderList();
+});
+
+// tab切换
+const tabChange = (type) => {
+  // console.log(type); 点击之后相应的激活状态数据
+  params.value.orderState = type;
+  getOrderList();
+};
 </script>
 
 <style scoped lang="scss">
