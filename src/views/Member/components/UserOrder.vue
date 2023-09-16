@@ -2,7 +2,11 @@
   <div class="order-container">
     <el-tabs>
       <!-- tab切换 -->
-      <el-tab-pane v-for="item in tabTypes" :key="item.name" :label="item.label" />
+      <el-tab-pane
+        v-for="item in tabTypes"
+        :key="item.name"
+        :label="item.label"
+      />
 
       <div class="main-container">
         <div class="holder-container" v-if="orderList.length === 0">
@@ -17,7 +21,7 @@
               <!-- 未付款，倒计时时间还有 -->
               <span class="down-time" v-if="order.orderState === 1">
                 <i class="iconfont icon-down-time"></i>
-                <b>付款截止: {{order.countdown}}</b>
+                <b>付款截止: {{ order.countdown }}</b>
               </span>
             </div>
             <div class="body">
@@ -58,11 +62,18 @@
                 <p>在线支付</p>
               </div>
               <div class="column action">
-                <el-button  v-if="order.orderState === 1" type="primary"
-                  size="small">
+                <el-button
+                  v-if="order.orderState === 1"
+                  type="primary"
+                  size="small"
+                >
                   立即付款
                 </el-button>
-                <el-button v-if="order.orderState === 3" type="primary" size="small">
+                <el-button
+                  v-if="order.orderState === 3"
+                  type="primary"
+                  size="small"
+                >
                   确认收货
                 </el-button>
                 <p><a href="javascript:;">查看详情</a></p>
@@ -72,7 +83,9 @@
                 <p v-if="[4, 5].includes(order.orderState)">
                   <a href="javascript:;">申请售后</a>
                 </p>
-                <p v-if="order.orderState === 1"><a href="javascript:;">取消订单</a></p>
+                <p v-if="order.orderState === 1">
+                  <a href="javascript:;">取消订单</a>
+                </p>
               </div>
             </div>
           </div>
@@ -82,13 +95,14 @@
           </div>
         </div>
       </div>
-
     </el-tabs>
   </div>
-
 </template>
 
 <script setup>
+import { getUserOrder } from "@/apis/order";
+import { ref, onMounted } from "vue";
+
 // tab列表
 const tabTypes = [
   { name: "all", label: "全部订单" },
@@ -97,11 +111,22 @@ const tabTypes = [
   { name: "receive", label: "待收货" },
   { name: "comment", label: "待评价" },
   { name: "complete", label: "已完成" },
-  { name: "cancel", label: "已取消" }
-]
-// 订单列表
-const orderList = []
-
+  { name: "cancel", label: "已取消" },
+];
+// 获取订单列表
+const orderList = ref([]);
+const params = ref({
+  orderState: 0,
+  page: 1,
+  pageSize: 2,
+})
+const getOrderList = async () => {
+  const res = await getUserOrder(params.value)
+ orderList.value= res.result.items
+};
+onMounted(() => {
+  getOrderList()
+})
 </script>
 
 <style scoped lang="scss">
@@ -171,7 +196,7 @@ const orderList = []
       text-align: center;
       padding: 20px;
 
-      >p {
+      > p {
         padding-top: 10px;
       }
 
