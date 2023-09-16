@@ -92,7 +92,13 @@
           </div>
           <!-- 分页 -->
           <div class="pagination-container">
-            <el-pagination background layout="prev, pager, next" />
+            <el-pagination
+              :total="total"
+              :page-size="params.pageSize"
+              :current-page="pageChange"
+              background
+              layout="prev, pager, next"
+            />
           </div>
         </div>
       </div>
@@ -115,6 +121,7 @@ const tabTypes = [
 ];
 // 获取订单列表
 const orderList = ref([]);
+const total = ref(0);
 const params = ref({
   orderState: 0,
   page: 1,
@@ -123,6 +130,7 @@ const params = ref({
 const getOrderList = async () => {
   const res = await getUserOrder(params.value);
   orderList.value = res.result.items;
+  total.value = res.result.counts;
 };
 onMounted(() => {
   getOrderList();
@@ -133,6 +141,12 @@ const tabChange = (type) => {
   // console.log(type); 点击之后相应的激活状态数据
   params.value.orderState = type;
   getOrderList();
+};
+
+// 分页功能切换页数
+const pageChange = (page) => {
+  // 把当前的的页数赋值给接收的page
+  params.page = page;
 };
 </script>
 
