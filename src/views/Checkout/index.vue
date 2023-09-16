@@ -115,6 +115,8 @@
     <div class="addressWrapper">
       <div
         class="text item"
+        :class="{ active: activeAddress.id === item.id }"
+        @click="switchAddress(item)"
         v-for="item in checkInfo.userAddresses"
         :key="item.id"
       >
@@ -130,7 +132,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button>取消</el-button>
-        <el-button type="primary">确定</el-button>
+        <el-button type="primary" @click="confirm">确定</el-button>
       </span>
     </template>
   </el-dialog>
@@ -159,8 +161,20 @@ onMounted(() => {
 });
 
 // 控制弹框打开
-const showDialog = ref(false)
+const showDialog = ref(false);
 
+//切换地址的回调 记录当前点击传过来的对象
+const activeAddress = ref({});
+const switchAddress = (item) => {
+  // 点击哪一项 哪一项就会被记录下来
+  activeAddress.value = item;
+};
+// 用激活的地址覆盖原来的地址
+const confirm = () => {
+  curAddress.value = activeAddress.value;
+  showDialog.value = false;
+  activeAddress.value = {};
+};
 </script>
 
 <style scoped lang="scss">
