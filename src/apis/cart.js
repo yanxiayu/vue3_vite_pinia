@@ -26,7 +26,16 @@ export const delCartAPI = (ids) => {
     url: "/member/cart",
     method: "DELETE",
     data: {
-      ids
-    }
+      ids,
+    },
+  });
+};
+
+// 合并本地购物车和浏览器的数据
+export const mergeCartAPI = (data) => {
+  return request({
+    url: "/member/cart/merge",
+    method: "POST",
+    data
   });
 };

@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { loginAPI } from "@/apis/user";
 import { ref } from "vue";
 import { useCartStore } from "./cartStore";
+import { mergeCartAPI } from "@/apis/cart";
 
 // defineStore('模块名', () => {})
 export const useUserStore = defineStore(
@@ -15,13 +16,22 @@ export const useUserStore = defineStore(
     const getUserInfo = async ({ account, password }) => {
       const res = await loginAPI({ account, password });
       userInfo.value = res.result;
+      // 合并购物车的操作
+      await mergeCartAPI(cartStore.cartList.map(item => {
+        return {
+          skuId: item.skuId,
+          selected: item.selected,
+          count:item.count
+        }
+      }))
+      cartStore.updateNewList()
     };
 
     // 退出时清空用户信息
     const clearUserInfo = () => {
       userInfo.value = {};
       // 执行清除购物车的action函数
-      cartStore.clearCart()
+      cartStore.clearCart();
     };
 
     // 3.以对象的形式将state和action return出去

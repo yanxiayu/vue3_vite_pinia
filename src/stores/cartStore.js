@@ -118,7 +118,8 @@ export const useCartStore = defineStore(
       allCheck,
       selectedCount,
       selectedPrice,
-      clearCart
+      clearCart,
+      updateNewList
     };
   },
   // 持久化配置 存入localstorage
